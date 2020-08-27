@@ -14,7 +14,7 @@ export default new Vuex.Store({
   },
   actions: {
     init ({ commit }) {
-      fetch('/api/v1/rest/datastore/a1b4714b-3b75-4ff8-a8f2-cc377e4eaa0f?format=json&limit=400')
+      fetch(process.env.VUE_APP_URL)
         .then(res => res.json())
         .then(data => {
           commit('setData', data.result)
