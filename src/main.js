@@ -3,6 +3,8 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import './assets/css/reset.css'
+import './assets/css/icon.css'
 import { LMap, LTileLayer, LMarker, LPopup, LIcon } from 'vue2-leaflet'
 import { Icon } from 'leaflet'
 // 載入 css
