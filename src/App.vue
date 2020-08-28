@@ -30,18 +30,25 @@
           <l-popup>{{ item.name }}</l-popup>
         </l-marker>
       </v-marker-cluster>
+      <l-control-zoom position="bottomright"></l-control-zoom>
+      <l-control-scale position="topright" :imperial="true" :metric="false"></l-control-scale>
     </l-map>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { LControlZoom, LControlScale } from 'vue2-leaflet'
 export default {
   name: 'App',
+  components: {
+    LControlZoom,
+    LControlScale
+  },
   data () {
     return {
 
-      zoom: 13,
+      zoom: 14,
       center: [24.993977, 121.301644],
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution: "© <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors",
