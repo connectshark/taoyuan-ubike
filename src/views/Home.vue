@@ -19,15 +19,16 @@
       <v-marker-cluster>
         <l-marker :lat-lng="item.local" v-for="item in formateData" :key="item.id">
           <l-icon
-            :icon-url="item.name === '夢時代購物中心' ? icon.type.gold : icon.type.black"
+            :icon-url="urlHandler(item.id)"
             :shadow-url="icon.shadowUrl"
             :icon-size="icon.iconSize"
             :icon-anchor="icon.iconAnchor"
             :popup-anchor="icon.popupAnchor"
             :shadow-size="icon.shadowSize"
           />
-          <l-popup>
+          <l-popup :options="popUpOptions">
             <popUp
+              :id="item.id"
               :title="item.name"
               :seat="item.bemp"
               :bike="item.sbi"/>
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { LControlZoom, LControlScale } from 'vue2-leaflet'
 import popUp from '../components/popUp'
 export default {
@@ -76,11 +77,20 @@ export default {
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
+      },
+      popUpOptions: {
+        maxWidth: 150
       }
     }
   },
   computed: {
-    ...mapGetters(['formateData'])
+    ...mapGetters(['formateData']),
+    ...mapState(['favList'])
+  },
+  methods: {
+    urlHandler (id) {
+      return this.favList.indexOf(id) === -1 ? this.icon.type.black : this.icon.type.gold
+    }
   },
   mounted () {
     // 等地圖創建後執行
@@ -88,9 +98,7 @@ export default {
       // 獲得目前位置
       navigator.geolocation.getCurrentPosition(position => {
         const p = position.coords
-        // 將中心點設為目前的位置
         this.center = [p.latitude, p.longitude]
-        // 將目前的位置的標記點彈跳視窗打開
         this.$refs.location.mapObject.openPopup()
       })
     })
