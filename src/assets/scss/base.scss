@@ -1,0 +1,5 @@
+@mixin text($font-size:16px, $font-weight:normal) {
+    font-family: Microsoft YaHei, 微软雅黑, 微軟正黑體, Microsoft JhengHei,Arial, -apple-system,openhuninn,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-size: $font-size;
+    font-weight: $font-weight;
+}

@@ -66,9 +66,8 @@ export default {
     color: goldenrod;
   }
   .header{
+    @include text(24px, bolder);
     text-align: center;
-    font-size: 24px;
-    font-weight: bolder;
   }
   .content{
     display: flex;
@@ -86,8 +85,7 @@ export default {
         border: 1px solid #ccc;
       }
       .basic-font{
-        font-size: 20px;
-        font-weight: bolder;
+        @include text(20px, bolder);
       }
     }
   }

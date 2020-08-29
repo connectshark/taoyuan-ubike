@@ -5,7 +5,7 @@
       :zoom="zoom"
       :center="center"
       :options="options"
-      style="height: 100vh;">
+      style="height: 100%;">
       <!-- 載入圖資 -->
       <l-tile-layer :url="url" :attribution="attribution" />
 
@@ -105,3 +105,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#home{
+  height: 100%;
+}
+</style>
