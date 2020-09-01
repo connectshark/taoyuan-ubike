@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <nearby/>
     <l-map
       ref="myMap"
       :zoom="zoom"
@@ -35,30 +36,24 @@
           </l-popup>
         </l-marker>
       </v-marker-cluster>
-      <l-control-zoom position="bottomright"></l-control-zoom>
-      <l-control-scale
-        position="bottomleft"
-        :imperial="true"
-        :metric="false"></l-control-scale>
     </l-map>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { LControlZoom, LControlScale } from 'vue2-leaflet'
 import popUp from '../components/popUp'
+import nearby from '../components/nearby'
+
 export default {
   name: 'home',
   components: {
-    LControlZoom,
-    LControlScale,
-    popUp
+    popUp,
+    nearby
   },
   data () {
     return {
       zoom: 15,
-      center: [24.993977, 121.301644],
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution: "© <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors",
       options: {
@@ -85,7 +80,7 @@ export default {
   },
   computed: {
     ...mapGetters(['formateData']),
-    ...mapState(['favList'])
+    ...mapState(['favList', 'center'])
   },
   methods: {
     urlHandler (id) {
@@ -98,7 +93,7 @@ export default {
       // 獲得目前位置
       navigator.geolocation.getCurrentPosition(position => {
         const p = position.coords
-        this.center = [p.latitude, p.longitude]
+        this.$store.commit('modifyCenter', [p.latitude, p.longitude])
         this.$refs.location.mapObject.openPopup()
       })
     })

@@ -3,7 +3,8 @@ module.exports = {
     sourceMap: false,
     loaderOptions: {
       scss: {
-        prependData: '@import "~@/assets/scss/base.scss";'
+        prependData: `@import "~@/assets/scss/base.scss";
+        @import "~@/assets/scss/media.scss";`
       }
     }
   },

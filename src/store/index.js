@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    center: [24.993977, 121.301644],
     ubike: {},
     favList: []
   },
@@ -24,6 +25,9 @@ export default new Vuex.Store({
       const index = state.favList.indexOf(id)
       state.favList.splice(index, 1)
       LS.save('favList', state.favList)
+    },
+    modifyCenter (state, arr) {
+      state.center = arr
     }
   },
   actions: {
@@ -47,6 +51,9 @@ export default new Vuex.Store({
           bemp: parseInt(item.bemp)
         }
       })
+    },
+    filterFavList (state, getter) {
+      return getter.formateData.filter(item => state.favList.includes(item.id))
     }
   }
 })

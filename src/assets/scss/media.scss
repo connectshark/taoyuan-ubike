@@ -1,0 +1,48 @@
+$large-desktops:1200px;
+$desktops:1024px;
+$ipad:768px;
+$iphone-plus:414px;
+$iphone:375px;
+
+.dispear-when-mobile {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+.appear-when-mobile {
+  display: flex;
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+}
+
+@mixin large-desktops-width() {
+  @media (min-width: $large-desktops) {
+    @content;
+  }
+}
+
+@mixin desktops-width() {
+  @media (min-width: $desktops) {
+    @content;
+  }
+}
+
+@mixin ipad-width() {
+  @media (min-width: $ipad) {
+    @content;
+  }
+}
+
+@mixin iphone-plus-width() {
+  @media (min-width: $iphone-plus) {
+    @content;
+  }
+}
+
+@mixin iphone-width() {
+  @media (min-width: $iphone) {
+    @content;
+  }
+}
