@@ -27,6 +27,11 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'nearby',
+  props: {
+    map: {
+      type: Object
+    }
+  },
   computed: {
     ...mapGetters(['filterFavList']),
     checkLength () {
@@ -35,7 +40,7 @@ export default {
   },
   methods: {
     focusStop (stop) {
-      this.$store.commit('modifyCenter', stop.local)
+      this.map.panTo(stop.local)
     }
   }
 }

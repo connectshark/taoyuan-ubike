@@ -1,11 +1,12 @@
 <template>
   <div id="home">
-    <nearby/>
+    <nearby :map="map"/>
     <l-map
       ref="myMap"
       :zoom="zoom"
       :center="center"
       :options="options"
+      @ready="doSomethingOnReady"
       style="height: 100%;">
       <!-- 載入圖資 -->
       <l-tile-layer :url="url" :attribution="attribution" />
@@ -53,6 +54,7 @@ export default {
   },
   data () {
     return {
+      map: {},
       zoom: 15,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution: "© <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors",
@@ -85,6 +87,9 @@ export default {
   methods: {
     urlHandler (id) {
       return this.favList.indexOf(id) === -1 ? this.icon.type.black : this.icon.type.gold
+    },
+    doSomethingOnReady () {
+      this.map = this.$refs.myMap.mapObject
     }
   },
   mounted () {
