@@ -11,6 +11,7 @@
         :key="item.id">
         <div class="name" @click.stop="focusStop(item)">
           <p>{{item.name}}</p>
+          <p>距您位置{{calDistance(item.local)}}m</p>
         </div>
         <div class="empty">
           <p>{{item.bemp}}</p>
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'nearby',
   props: {
@@ -33,6 +34,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['center']),
     ...mapGetters(['filterFavList']),
     checkLength () {
       return this.filterFavList.length > 0
@@ -41,6 +43,9 @@ export default {
   methods: {
     focusStop (stop) {
       this.map.panTo(stop.local)
+    },
+    calDistance (local) {
+      return Math.floor(this.map.distance(local, this.center))
     }
   }
 }
@@ -93,9 +98,12 @@ export default {
         text-align: left;
         width: 60%;
         padding: 0 15px;
+        cursor: pointer;
         p{
-          cursor: pointer;
-          @include text(24px, bolder);
+          @include text(14px, 400);
+          &:first-child{
+            @include text(24px, bolder);
+          }
         }
       }
       .empty, .bike{
